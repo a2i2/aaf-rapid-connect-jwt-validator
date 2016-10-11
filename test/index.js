@@ -4,6 +4,7 @@ import validateJWT from "../lib";
 
 const appUrl = "https://example.com";
 const jwtSecret = "secret";
+const noop = () => {};
 
 describe("aaf-rapid-connect-jwt-validator", () => {
   it("should return a Promise resolved with user attributes", () => {
@@ -18,8 +19,14 @@ describe("aaf-rapid-connect-jwt-validator", () => {
         attr2: 2
       }
     };
-    let assertion = encodeJWT(jwt, jwtSecret);
-    let promise = validateJWT(assertion, appUrl, jwtSecret, () => {}, () => {});
+
+    let promise = validateJWT({
+      assertion: encodeJWT(jwt, jwtSecret),
+      appUrl,
+      jwtSecret,
+      findToken: noop,
+      storeToken: noop
+    });
 
     promise.should.be.a.Promise();
 

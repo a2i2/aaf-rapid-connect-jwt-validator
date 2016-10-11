@@ -12,4 +12,24 @@ $ npm install aaf-rapid-connect-jwt-validator
 
 ## Usage
 
-TODO.
+Example:
+
+```js
+import validateJWT from "aaf-rapid-connect-jwt-validator";
+
+let options = { ... };
+
+validateJWT(options)
+.then(attrs => console.log(attrs))
+.catch(error => console.log(error));
+```
+
+As shown, the package exposes a function that validates a JWT and returns a Promise. When validation is successful, the Promise is resolved with user attributes extracted from the JWT; otherwise, it is rejected.
+
+The following `options` must be specified:
+
+- `assertion` – A raw assertion string containing the signed JWT.
+- `appUrl` – The main entry point URL of the application the JWT is intended for.
+- `jwtSecret` – The secret key used to sign the JWT.
+- `findToken` – A function that searches your token storage mechanism to determine whether the JWT is a "duplicate", returning `true` if so; otherwise, `false`. The JWT's identifier is supplied to the function as its only argument, and the return value can be resolved via a Promise if necessary.
+- `storeToken` – A function that persists the JWT to your token storage mechanism. The JWT's identifier is supplied to the function as its only argument.
