@@ -6,7 +6,7 @@ const appUrl = "https://example.com";
 const jwtSecret = "secret";
 
 describe("aaf-rapid-connect-jwt-validator", () => {
-  it("should return user attributes when JWT is valid", () => {
+  it("should return a Promise resolved with user attributes", () => {
     let jwt = {
       iss: "https://rapid.aaf.edu.au",
       aud: appUrl,
@@ -19,9 +19,14 @@ describe("aaf-rapid-connect-jwt-validator", () => {
       }
     };
     let assertion = encodeJWT(jwt, jwtSecret);
-    let userAttributes = validateJWT(assertion, appUrl, jwtSecret);
-    userAttributes.should.be.an.Object().and.have.keys("attr1", "attr2");
-    userAttributes.attr1.should.be.a.Number().and.equal(1);
-    userAttributes.attr2.should.be.a.Number().and.equal(2);
+    let promise = validateJWT(assertion, appUrl, jwtSecret, () => {}, () => {});
+
+    promise.should.be.a.Promise();
+
+    return promise.then(attrs => {
+      attrs.should.be.an.Object().and.have.keys("attr1", "attr2");
+      attrs.attr1.should.be.a.Number().and.equal(1);
+      attrs.attr2.should.be.a.Number().and.equal(2);
+    });
   });
 });
