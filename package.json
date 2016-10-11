@@ -1,6 +1,6 @@
 {
   "name": "aaf-rapid-connect-jwt-validator",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Validate JWT claims according to AAF's recommendations.",
   "author": "DSTIL",
   "license": "MIT",
