@@ -1,6 +1,6 @@
 import should from "should";
 import { encode as encodeJWT } from "jwt-simple";
-import validateJWT from "../lib";
+import validateJWT, { ValidationError } from "../lib";
 
 const noop = () => {};
 const jwtSecret = "secret";
@@ -50,7 +50,11 @@ describe("aaf-rapid-connect-jwt-validator", () => {
     }).then(() => {
       throw new Error("Invalid JWT successfully passed validation. :(");
     }).catch(error => {
-      done(error.message === "Invalid JWT issuer." ? null : error);
+      if (error instanceof ValidationError && error.message === "Invalid JWT issuer.") {
+        done();
+      } else {
+        done(error);
+      }
     });
   });
 
@@ -66,7 +70,11 @@ describe("aaf-rapid-connect-jwt-validator", () => {
     }).then(() => {
       throw new Error("Invalid JWT successfully passed validation. :(");
     }).catch(error => {
-      done(error.message === "Invalid JWT audience." ? null : error);
+      if (error instanceof ValidationError && error.message === "Invalid JWT audience.") {
+        done();
+      } else {
+        done(error);
+      }
     });
   });
 
@@ -82,7 +90,11 @@ describe("aaf-rapid-connect-jwt-validator", () => {
     }).then(() => {
       throw new Error("Invalid JWT successfully passed validation. :(");
     }).catch(error => {
-      done(error.message === "Invalid JWT identifier." ? null : error);
+      if (error instanceof ValidationError && error.message === "Invalid JWT identifier.") {
+        done();
+      } else {
+        done(error);
+      }
     });
   });
 });
