@@ -13,7 +13,7 @@
   },
   "main": "dist",
   "scripts": {
-    "build": "node_modules/.bin/babel lib -d dist",
+    "build": "node_modules/.bin/babel lib -d dist -q",
     "prebuild": "node_modules/.bin/rimraf dist",
     "precommit": "npm test",
     "prepush": "npm test",
