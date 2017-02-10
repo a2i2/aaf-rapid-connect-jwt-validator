@@ -4,13 +4,7 @@
   "description": "Validate JWT claims according to AAF's recommendations.",
   "author": "DSTIL",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/dstil/aaf-rapid-connect-jwt-validator.git"
-  },
-  "bugs": {
-    "url": "https://github.com/dstil/aaf-rapid-connect-jwt-validator/issues"
-  },
+  "repository": "dstil/aaf-rapid-connect-jwt-validator",
   "main": "dist",
   "scripts": {
     "build": "node_modules/.bin/babel lib -d dist -q",
